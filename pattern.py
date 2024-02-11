@@ -3,7 +3,7 @@ class Archer:
         self.hp = hp
 
     def walk(self):
-        return "Ich laufe..."
+        return "I am walking..."
 
     def attack(self):
         return "I shoot an arrow!"
@@ -14,50 +14,39 @@ class Knight:
         self.hp = hp
 
     def walk(self):
-        return "I march forward!"
+        return "I am marching..."
 
     def attack(self):
         return "I swing my sword!"
 
 
-class CharacterFactory:
-    def create_character(self, type, hp):
-        if type == "Archer":
-            return Archer(hp)
-        elif type == "Knight":
-            return Knight(hp)
-        else:
-            raise ValueError("Unknown character type")
+def create_character(type, hp):
+    if type == "Archer":
+        return Archer(hp)
+    elif type == "Knight":
+        return Knight(hp)
+    else:
+        raise ValueError("Unknown character type")
 
 
-# Usage
-factory = CharacterFactory()
-archer = factory.create_character("Archer", 100)
-knight = factory.create_character("Knight", 150)
+archer = create_character("Archer", 100)
+knight = create_character("Knight", 100)
 
-# Testing the created characters
-print(archer.walk())  # "Ich laufe..."
-print(archer.attack())  # "I shoot an arrow!"
-print(knight.walk())  # "I march forward!"
-print(knight.attack())  # "I swing my sword!"
-
-###############################
+print(archer.walk())
+print(knight.walk())
 
 
 class AttackStrategy:
     def execute(self):
         pass
 
-
 class BowAttack(AttackStrategy):
     def execute(self):
-        return "Shoot an arrow"
-
+        return "Shooting a bow!"
 
 class CrossbowAttack(AttackStrategy):
     def execute(self):
-        return "Shoot a crossbow bolt"
-
+        return "Shoot with a crossbow!"
 
 class Archer:
     def __init__(self, hp, strategy):
@@ -67,29 +56,22 @@ class Archer:
     def attack(self):
         return self.strategy.execute()
 
-
-# Usage
 archer = Archer(100, BowAttack())
 print(archer.attack())
 archer.strategy = CrossbowAttack()
 print(archer.attack())
-
-################################################################
 
 
 class Observer:
     def update(self, subject):
         pass
 
-
 class King(Observer):
     def __init__(self, name):
         self.name = name
 
     def update(self, subject):
-        print(
-            f"{self.name} received update from {subject.__class__.__name__}: New HP is {subject.hp}"
-        )
+        print(f"{self.name} received update from {subject.__class__.__name__}: New HP is {subject.hp}")
 
 
 class Knight:
@@ -108,13 +90,13 @@ class Knight:
         self.hp = hp
         self.notify()
 
-
-# Usage
 knight = Knight(100)
-king_arthur = King("King Arthur")
+king_arthur = King("King Arhtur")
 king_richard = King("King Richard")
 
 knight.attach(king_arthur)
 knight.attach(king_richard)
 
-knight.set_hp(90)
+knight.set_hp(50)
+
+

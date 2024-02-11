@@ -1,15 +1,11 @@
-
 class Deskriptor:
-
-    def __init__(self, value):
-        self._value = value
 
     def __get__(self, instance, owner):
         return instance.__dict__[self.name]
 
     def __set__(self, instance, value):
-        if value < 0 or value > self._value:
-            raise ValueError(f"Property {self.name} erlaubt nur werte zwischen 0 und {self._value}")
+        if value < 0 or value > 100:
+            raise ValueError("Value has to be between 0 and 100")
         instance.__dict__[self.name] = value
 
     def __set_name__(self, owner, name):
@@ -19,10 +15,12 @@ class Lifes:
     def __get__(self, instance, owner):
         return 3
 
+    def __set__(self, instance, value):
+        pass
 
 class Archer:
-    hp = Deskriptor(120)
-    mana = Deskriptor(50)
+    hp = Deskriptor
+    mana = Deskriptor
     lifes = Lifes()
 
     def __init__(self, hp, mana, lifes):
@@ -30,9 +28,6 @@ class Archer:
         self.mana = mana
         self.lifes = lifes
 
-archer = Archer(100, 50, 5)
-
-
-print(archer.lifes)
-
+archer1 = Archer(100, 30, 6)
+print(archer1.lifes)
 

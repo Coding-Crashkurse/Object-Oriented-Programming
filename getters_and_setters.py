@@ -1,15 +1,25 @@
-# class Archer:
-#
-#     def __init__(self, hp):
-#         self._hp = hp
-#
-#     def get_hp(self):
-#         return self._hp
-#
-#     def set_hp(self, value):
-#         self._hp = value
-#
-#     hp = property(fget=get_hp, fset=set_hp)
+class Archer:
+    def __init__(self, hp):
+        self._hp = hp
+
+    def get_hp(self):
+        print("Getter called")
+        return self._hp
+
+    def set_hp(self, value):
+        if value > 200:
+            raise ValueError("HP can be 200 at max!")
+        print("Setter called")
+        self._hp = value
+
+    hp = property(fget=get_hp, fset=set_hp)
+
+
+archer1 = Archer(100)
+archer1._hp = 201
+print(archer1.hp)
+
+import time
 
 class Archer:
     def __init__(self, hp, dmg):
@@ -30,13 +40,17 @@ class Archer:
     @property
     def overall_damage(self):
         if self._overall_damage is None:
-            print("Berechnung wird durchgeführt")
+            print("Compute...")
+            time.sleep(3)
             self._overall_damage = self.dmg * self.crit
+        else:
+            print("Using cache")
         return self._overall_damage
 
+    @overall_damage.setter
+    def overall_damage(self, value):
+        raise ValueError("Changing overall damage not allowed")
 
-archer = Archer(100, 50)
-print(archer.overall_damage)
-archer.dmg = 500
-print(archer.overall_damage)
-print(archer.overall_damage)
+
+archer1 = Archer(100, 20)
+archer1._overall_damage = 35

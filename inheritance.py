@@ -1,37 +1,46 @@
-class BasePlayer:
+class Player:
 
     def __init__(self, hp):
         self.hp = hp
 
     def walk(self):
-        print("Ich laufe...")
+        print("I am walking")
 
 
-class Archer(BasePlayer):
+class Wizard(Player):
+
+    def walk(self):
+        print("I am floating...")
+
+class Archer(Player):
 
     def __init__(self, hp, arrows):
         super().__init__(hp=hp)
         self.arrows = arrows
 
+    def shoot(self):
+        self.arrows -= 1
+        print(f"Archer shoots.. {self.arrows} arrows left!")
 
-class Wizard(BasePlayer):
-    pass
+# wizard = Wizard(50)
+# wizard.walk()
 
-archer = Archer(100, 10)
-wizard = Wizard(15)
+# archer = Archer(100, 5)
+# archer.shoot()
+# archer.shoot()
 
-archer.walk()
-wizard.walk()
-x = {"bla": 123}
-x["bla"] = 122
+# x = {"test": 123}
+# print(x)
+# x["test"] = 200
+# print(x)
 
 class NoUpdateDictionary(dict):
     def __setitem__(self, key, value):
         if key in self:
-            raise KeyError("Key existiert bereits")
+            raise KeyError("Key already present")
         super().__setitem__(key, value)
 
-x = NoUpdateDictionary()
-x["key"] = 123
-x["key"] = 125
-print(x)
+y = NoUpdateDictionary()
+y["key"] = 123
+y["key"] = 200
+print(y)
